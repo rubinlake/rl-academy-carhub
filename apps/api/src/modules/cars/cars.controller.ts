@@ -32,7 +32,7 @@ import { CarDto } from "./dto/car.dto";
 import { CreateCarDto } from "./dto/create-car.dto";
 import { UpdateCarDto } from "./dto/update-car.dto";
 
-@Controller("cars")
+@Controller({ path: "cars", version: "1" })
 export class CarsController {
   constructor(
     private readonly carsService: CarsService,
@@ -46,7 +46,6 @@ export class CarsController {
     summary: "Create a car",
     successText: "Car created successfully",
     type: CarDto,
-    errors: [Errors.CAR_MODEL_ALREADY_EXISTS],
   })
   async create(@Body() dto: CreateCarDto) {
     const car = await this.carsService.create(dto);

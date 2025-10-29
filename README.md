@@ -69,7 +69,7 @@ pnpm dev
 ```
 
 ### Sample Data Created
-- **2 Users**: `admin`/`admin123` and `jondoe`/`password123`
+- **2 Users**: `admin`/`admin` and `jondoe`/`jondoe`
 - **10 Manufacturers**: Toyota, Honda, Ford, BMW, Mercedes-Benz, etc.
 - **50 Car Models**: 5 models per manufacturer with slugs
 - **Full Relationships**: Proper foreign keys and cascading

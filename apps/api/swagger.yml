@@ -12,9 +12,6 @@ paths:
               $ref: "#/components/schemas/CreateCarDto"
       responses:
         "201":
-          errors:
-            - status: 409
-              message: Car model already exists. Ensure the model name is new and unqiue
           description: Car created successfully
           content:
             application/json:
@@ -66,19 +63,6 @@ paths:
                     statusCode: 403
                     errorCode: FORBIDDEN
                     message: You don't have permission to perform this action
-        "409":
-          description: Car model already exists. Ensure the model name is new and unqiue
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorDto"
-              examples:
-                default:
-                  summary: CAR_MODEL_ALREADY_EXISTS Error
-                  value:
-                    statusCode: 409
-                    errorCode: CAR_MODEL_ALREADY_EXISTS
-                    message: Car model already exists. Ensure the model name is new and unqiue
         "429":
           description: Too many requests, try again later
           content:
