@@ -46,7 +46,7 @@ export const Errors = {
   CAR_MODEL_ALREADY_EXISTS: {
     status: HttpStatus.CONFLICT,
     message:
-      "Car model already exists. Ensure the model name is new and unqiue",
+      "Car model already exists. Ensure the model name is new and unique",
   },
   CAR_MODEL_NOT_FOUND: {
     status: HttpStatus.NOT_FOUND,

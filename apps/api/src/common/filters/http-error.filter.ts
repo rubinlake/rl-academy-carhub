@@ -19,13 +19,18 @@ export class HttpErrorFilter implements ExceptionFilter {
     const response = ctx.getResponse();
     const request = ctx.getRequest();
 
+    // Generate unique error ID for tracking
+    const errorId = crypto.randomUUID();
+
     let errorResponse: ErrorDto = {
       statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
       message: "An unexpected error has occurred, please try again",
       errorCode: "UNEXPECTED_ERROR",
+      id: errorId,
     };
 
     if (exception instanceof AppError) {
+      // AppError already has id, use it
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const appErrorResponse = exception.getResponse() as any;
       errorResponse = {
@@ -33,6 +38,7 @@ export class HttpErrorFilter implements ExceptionFilter {
         errorCode: appErrorResponse.errorCode,
         message: appErrorResponse.message,
         errors: appErrorResponse.errors,
+        id: appErrorResponse.id ?? errorId, // Use AppError's id if available
       };
     } else if (exception instanceof HttpException) {
       // Wrap Nest built-in HttpExceptions
@@ -48,9 +54,11 @@ export class HttpErrorFilter implements ExceptionFilter {
         errorResponse.statusCode = HttpStatus.TOO_MANY_REQUESTS;
         errorResponse.errorCode = "TOO_MANY_REQUESTS";
         errorResponse.message = "Too many requests, try again later.";
+        errorResponse.id = errorId;
       } else {
         errorResponse.statusCode = status;
         errorResponse.message = message;
+        errorResponse.id = errorId;
 
         if (status === HttpStatus.BAD_REQUEST) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -67,8 +75,9 @@ export class HttpErrorFilter implements ExceptionFilter {
         }
       }
     } else {
+      // Log unexpected errors with the error ID for correlation
       this.logger.error(
-        `HTTP 500 | ${request.method} ${request.url} | ${(exception as Error)?.message}`,
+        `HTTP 500 | ${request.method} ${request.url} | Error ID: ${errorId} | ${(exception as Error)?.message}`,
         (exception as Error)?.stack,
       );
     }

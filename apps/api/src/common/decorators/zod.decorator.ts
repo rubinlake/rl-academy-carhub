@@ -3,6 +3,7 @@ import type { ExecutionContext } from "@nestjs/common";
 import { createParamDecorator } from "@nestjs/common";
 import { ApiParam, ApiQuery } from "@nestjs/swagger";
 import type { z } from "zod";
+import { ZodError } from "zod";
 import { AppError } from "../errors/app-error";
 import { Errors } from "../errors/errors";
 import { SwaggerError } from "./swagger-responses.decorator";
@@ -29,7 +30,7 @@ function createZodParamDecorator(
         const parsed = schema.safeParse(rawValue);
         if (!parsed.success) {
           throw new AppError(Errors.VALIDATION_ERROR, {
-            meta: { errors: parsed.error },
+            meta: { errors: parsed.error } as { errors: ZodError },
           });
         }
 

@@ -3,8 +3,16 @@ import { createZodDto } from "nestjs-zod";
 import { z } from "zod";
 import type { ErrorKey } from "./errors";
 
+// Create a schema for HTTP status codes (numbers)
+const httpStatusSchema = z
+  .number()
+  .int()
+  .min(100)
+  .max(599)
+  .describe("The HTTP status code");
+
 export const ErrorSchema = z.object({
-  statusCode: z.enum(HttpStatus).describe("The HTTP status code"),
+  statusCode: httpStatusSchema,
   errorCode: z
     .string()
     .describe("The application specific error code")
@@ -13,13 +21,14 @@ export const ErrorSchema = z.object({
   errors: z
     .array(
       z.object({
-        field: z.string(),
-        message: z.string(),
-        code: z.string(),
+        field: z.string().describe("The field path (e.g., 'email' or 'user.name')"),
+        message: z.string().describe("The validation error message"),
+        code: z.string().describe("The Zod error code (e.g., 'too_small', 'invalid_type')"),
       }),
     )
     .optional()
-    .describe("Zod validation errors"),
+    .describe("Validation errors (typically from Zod)"),
+  id: z.string().uuid().describe("Unique error identifier for tracking"),
 });
 
 export class ErrorDto extends createZodDto(ErrorSchema) {}
