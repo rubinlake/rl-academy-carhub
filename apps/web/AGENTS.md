@@ -199,3 +199,4 @@ const styles = {
 - **Shared Components**: Extract to `ui/` when used across features
 - **API Organization**: Mirror backend tRPC structure in frontend
 - **Type Safety**: Maintain end-to-end type safety with tRPC
+

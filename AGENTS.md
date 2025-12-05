@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding assistants when working with code in this repository.
 
 ## Project Overview
 
@@ -180,8 +180,8 @@ pnpm dev:api
 ## App-Specific Guidelines
 
 For detailed development guidelines:
-- **API Development**: `apps/api/CLAUDE.md` - Comprehensive NestJS patterns and architecture
-- **Frontend Development**: `apps/web/CLAUDE.md` - Next.js patterns and tRPC integration *(in development)*
+- **API Development**: `apps/api/AGENTS.md` - Comprehensive NestJS patterns and architecture
+- **Frontend Development**: `apps/web/AGENTS.md` - Next.js patterns and tRPC integration *(in development)*
 
 ## Key Inspiration Points
 
@@ -195,3 +195,4 @@ This project demonstrates:
 7. **Modern Stack** - Latest NestJS, tRPC, TypeORM, and Zod patterns
 
 Use this project as inspiration for building modern, type-safe, well-documented APIs with excellent developer experience.
+
