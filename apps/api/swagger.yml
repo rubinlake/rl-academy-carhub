@@ -253,6 +253,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_NOT_FOUND
                     message: Car not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -475,6 +476,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_NOT_FOUND
                     message: Car not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -578,6 +580,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_NOT_FOUND
                     message: Car not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -790,6 +793,7 @@ paths:
                     statusCode: 409
                     errorCode: CAR_MANUFACTURER_ALREADY_EXISTS
                     message: Car manufacturer already exists
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -959,6 +963,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MANUFACTURER_NOT_FOUND
                     message: Car manufacturer not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1071,6 +1076,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MANUFACTURER_NOT_FOUND
                     message: Car manufacturer not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1173,6 +1179,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MANUFACTURER_NOT_FOUND
                     message: Car manufacturer not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1283,6 +1290,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MANUFACTURER_NOT_FOUND
                     message: Car manufacturer not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1460,6 +1468,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MODEL_NOT_FOUND
                     message: Car model not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1572,6 +1581,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MODEL_NOT_FOUND
                     message: Car model not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1674,6 +1684,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MODEL_NOT_FOUND
                     message: Car model not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1760,6 +1771,7 @@ paths:
                     statusCode: 404
                     errorCode: CAR_MODEL_NOT_FOUND
                     message: Car model not found
+                    id: 550e8400-e29b-41d4-a716-446655440000
         "429":
           description: Too many requests, try again later
           content:
@@ -1811,63 +1823,9 @@ components:
       properties:
         statusCode:
           description: The HTTP status code
-          type: number
-          enum:
-            - 100
-            - 101
-            - 102
-            - 103
-            - 200
-            - 201
-            - 202
-            - 203
-            - 204
-            - 205
-            - 206
-            - 207
-            - 208
-            - 210
-            - 300
-            - 301
-            - 302
-            - 303
-            - 304
-            - 307
-            - 308
-            - 400
-            - 401
-            - 402
-            - 403
-            - 404
-            - 405
-            - 406
-            - 407
-            - 408
-            - 409
-            - 410
-            - 411
-            - 412
-            - 413
-            - 414
-            - 415
-            - 416
-            - 417
-            - 418
-            - 421
-            - 422
-            - 423
-            - 424
-            - 428
-            - 429
-            - 456
-            - 500
-            - 501
-            - 502
-            - 503
-            - 504
-            - 505
-            - 507
-            - 508
+          type: integer
+          minimum: 100
+          maximum: 599
         errorCode:
           description: The application specific error code
           type: string
@@ -1875,25 +1833,34 @@ components:
           description: The error message
           type: string
         errors:
-          description: Zod validation errors
+          description: Validation errors (typically from Zod)
           type: array
           items:
             type: object
             properties:
               field:
+                description: The field path (e.g., 'email' or 'user.name')
                 type: string
               message:
+                description: The validation error message
                 type: string
               code:
+                description: The Zod error code (e.g., 'too_small', 'invalid_type')
                 type: string
             required:
               - field
               - message
               - code
+        id:
+          description: Unique error identifier for tracking
+          type: string
+          format: uuid
+          pattern: ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$
       required:
         - statusCode
         - errorCode
         - message
+        - id
     CreateCarDto:
       type: object
       properties:
