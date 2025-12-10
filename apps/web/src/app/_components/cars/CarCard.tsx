@@ -224,12 +224,12 @@ function CarCard({ car, onFavoriteUpdate }: CarCardProps) {
 
         {/* Action Button */}
         <div className="px-6 pb-6">
-          <button
-            className="w-full py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-blue-400 rounded-lg font-medium hover:from-blue-600/30 hover:to-purple-600/30 hover:border-blue-400/50 transition-all duration-200"
+          <span
+            className="w-full block py-3 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 text-blue-400 rounded-lg font-medium group-hover:from-blue-600/30 group-hover:to-purple-600/30 group-hover:border-blue-400/50 transition-all duration-200 text-center"
             aria-label={`View details for ${car.model?.manufacturer?.name} ${car.model?.name}`}
           >
             View Details
-          </button>
+          </span>
         </div>
       </div>
     </div>
